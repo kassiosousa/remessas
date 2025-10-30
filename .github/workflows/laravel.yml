@@ -20,7 +20,6 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306:3306
-        # Espera o MySQL ficar saudável antes de rodar os passos
         options: >-
           --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
           --health-interval=10s
@@ -31,8 +30,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'      # ajuste se o seu projeto exigir outra
-          tools: composer:v2
+          php-version: '8.2'
           extensions: mbstring, bcmath, intl, pdo, pdo_mysql, openssl, tokenizer, xml, ctype, dom, fileinfo, curl
 
       - name: Checkout
@@ -48,28 +46,17 @@ jobs:
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
-      # Seta as variáveis de conexão do .env para o serviço MySQL do job
-      - name: Configure .env for MySQL
-        run: |
-          php -r "
-            function setEnv(\$k,\$v){
-              \$c=file_get_contents('.env');
-              if(preg_match('/^'.preg_quote(\$k,'/').'=.*/m',\$c)){
-                \$c=preg_replace('/^'.preg_quote(\$k,'/').'=.*/m',\$k.'='.\$v,\$c);
-              } else { \$c.=PHP_EOL.\$k.'='.\$v; }
-              file_put_contents('.env',\$c);
-            }
-            setEnv('DB_CONNECTION','mysql');
-            setEnv('DB_HOST','127.0.0.1');
-            setEnv('DB_PORT','3306');
-            setEnv('DB_DATABASE','testing');
-            setEnv('DB_USERNAME','testing');
-            setEnv('DB_PASSWORD','testing');
-          "
-          php artisan config:clear
-
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-progress --prefer-dist
+
+      - name: Configure .env for MySQL
+        run: |
+          sed -i 's/^DB_CONNECTION=.*/DB_CONNECTION=mysql/' .env
+          sed -i 's/^DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+          sed -i 's/^DB_PORT=.*/DB_PORT=3306/' .env
+          sed -i 's/^DB_DATABASE=.*/DB_DATABASE=testing/' .env
+          sed -i 's/^DB_USERNAME=.*/DB_USERNAME=testing/' .env
+          sed -i 's/^DB_PASSWORD=.*/DB_PASSWORD=testing/' .env
 
       - name: Generate key
         run: php artisan key:generate
@@ -77,9 +64,8 @@ jobs:
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
 
-      # Se seus testes dependem do schema, descomente a linha abaixo:
-      # - name: Prepare database
-      #   run: php artisan migrate:fresh --seed --force
+      - name: Run Migrations
+        run: php artisan migrate:fresh --force
 
       - name: Run Tests
         env:
