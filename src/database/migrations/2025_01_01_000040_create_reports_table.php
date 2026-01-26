@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->uuid('created_by')->nullable();
             $table->string('title')->nullable();
             $table->enum('platform', ['steam','epic','xbox','playstation','switch','android','ios','itch']);
             $table->char('period_month', 7); // 'YYYY-MM'
@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->timestamps();
 
             $table->index(['platform','period_month']);
+            $table->foreign('created_by')->references('id')->on('users')->nullOnDelete();
         });
     }
     public function down(): void {

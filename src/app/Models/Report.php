@@ -33,8 +33,4 @@ class Report extends Model
     public function payouts() {
         return $this->hasMany(Payout::class);
     }
-
-    public function invoices() {
-        return $this->belongsToMany(Invoice::class, 'invoice_report')->withTimestamps();
-    }
 }

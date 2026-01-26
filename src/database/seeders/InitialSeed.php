@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Invoice;
-use App\Models\InvoiceReport;
 use App\Models\Partner;
 use App\Models\Payout;
 use App\Models\Project;
@@ -13,7 +11,6 @@ use App\Models\ReportProject;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class InitialSeed extends Seeder
 {
@@ -107,19 +104,5 @@ class InitialSeed extends Seeder
             ]);
         }
 
-        // 8) Invoice (opcional) vinculada ao report
-        $invoice = Invoice::create([
-            'created_by'   => $admin->id,
-            'code'         => 'INV-' . Str::upper(Str::random(6)),
-            'date_created' => now()->toDateString(),
-            'currency'     => 'BRL',
-            'total_amount' => 0, // pode ser calculado depois
-            'notes'        => 'Documento fiscal opcional referente ao report STEAM 2025-09.',
-        ]);
-
-        InvoiceReport::create([
-            'invoice_id' => $invoice->id,
-            'report_id'  => $report->id,
-        ]);
     }
 }

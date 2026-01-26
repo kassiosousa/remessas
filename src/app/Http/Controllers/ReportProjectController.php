@@ -6,19 +6,43 @@ use App\Http\Requests\ReportAllocateRequest;
 use App\Models\Report;
 use App\Models\ReportProject;
 use Illuminate\Support\Facades\DB;
+use OpenApi\Annotations as OA;
 
 class ReportProjectController extends Controller
 {
     // POST /reports/{report}/allocate
+    /**
+     * @OA\Post(
+     *   path="/api/reports/{report}/allocate",
+     *   tags={"Reports"},
+     *   summary="Alocar projetos no relatório",
+     *   security={{"bearerAuth":{}}},
+     *   @OA\Parameter(name="report", in="path", required=true, @OA\Schema(type="integer")),
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\JsonContent(
+     *       required={"allocations"},
+     *       @OA\Property(
+     *         property="allocations",
+     *         type="array",
+     *         @OA\Items(
+     *           @OA\Property(property="project_id", type="integer", example=10),
+     *           @OA\Property(property="project_net_amount", type="number", format="float", example=500),
+     *           @OA\Property(property="currency", type="string", example="USD"),
+     *           @OA\Property(property="units_sold", type="integer", example=100)
+     *         )
+     *       ),
+     *       @OA\Property(property="overwrite", type="boolean", example=false)
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="Alocações salvas")
+     * )
+     */
     public function allocate(ReportAllocateRequest $request, Report $report)
     {
         $data      = $request->validated();
         $allocs    = $data['allocations'];
         $overwrite = (bool)($data['overwrite'] ?? false);
-
-        print_r($request); 
-        echo $report->id;
-        die;
 
         // Valida se todos os projects existem antes de escrever no BD
         $projectIds = collect($allocs)->pluck('project_id')->unique()->values();

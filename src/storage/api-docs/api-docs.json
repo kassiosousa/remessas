@@ -1,0 +1,1439 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "RemessasSteam API",
+        "description": "API para gestão de projetos, parceiros e divisão de receitas",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api": {
+            "get": {
+                "tags": [
+                    "Health"
+                ],
+                "summary": "Status da API",
+                "operationId": "b1c7d3591710a4ce42c41dbcafbf8f38",
+                "responses": {
+                    "200": {
+                        "description": "API disponível",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "api ok"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/user": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Usuário autenticado",
+                "operationId": "87c611b1aae5938be3c14b7e6e2d18f8",
+                "responses": {
+                    "200": {
+                        "description": "Usuário atual",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Autenticar usuário",
+                "operationId": "be86a2390dfead2e99d2b0291dcd2f58",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "admin@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                                        },
+                                        "user": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Credenciais inválidas"
+                    }
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout do usuário",
+                "operationId": "cf6581010b142f5d0eb4bd01a400189f",
+                "responses": {
+                    "200": {
+                        "description": "Usuário deslogado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário deslogado com sucesso"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/partners": {
+            "get": {
+                "tags": [
+                    "Partners"
+                ],
+                "summary": "Listar parceiros",
+                "operationId": "ad7a20817d6cb8421cd607a4eae29897",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de parceiros"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Partners"
+                ],
+                "summary": "Criar parceiro",
+                "operationId": "2921a83aea332ddd7e06ded02968410e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "created_by",
+                                    "name",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Parceiro X"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "parceiro@email.com"
+                                    },
+                                    "portfolio": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "birthday": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Parceiro criado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/partners/{partner}": {
+            "get": {
+                "tags": [
+                    "Partners"
+                ],
+                "summary": "Detalhar parceiro",
+                "operationId": "829c85515017820f4f55921d06e502fb",
+                "parameters": [
+                    {
+                        "name": "partner",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Parceiro"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Partners"
+                ],
+                "summary": "Atualizar parceiro",
+                "operationId": "15b9ffdba9a81ee38bd31bbdd7f0ff3f",
+                "parameters": [
+                    {
+                        "name": "partner",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "created_by",
+                                    "name",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Parceiro X"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "parceiro@email.com"
+                                    },
+                                    "portfolio": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "birthday": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Parceiro atualizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Partners"
+                ],
+                "summary": "Remover parceiro",
+                "operationId": "137abdd40072b7a5b3b543fbb28fb004",
+                "parameters": [
+                    {
+                        "name": "partner",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Parceiro removido"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/payouts": {
+            "get": {
+                "tags": [
+                    "Payouts"
+                ],
+                "summary": "Listar payouts",
+                "operationId": "0943d4399d51d89d6b212c8ffe31d60e",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "partner_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "project_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "report_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 20
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de payouts"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/payouts/{payout}": {
+            "get": {
+                "tags": [
+                    "Payouts"
+                ],
+                "summary": "Detalhar payout",
+                "operationId": "9ac4d74b28e723e96d0f2fedf7aab5bc",
+                "parameters": [
+                    {
+                        "name": "payout",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Payout"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Payouts"
+                ],
+                "summary": "Atualizar payout",
+                "operationId": "1fd919725a012f3bfb447741120ae472",
+                "parameters": [
+                    {
+                        "name": "payout",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "pending",
+                                            "scheduled",
+                                            "paid",
+                                            "canceled"
+                                        ]
+                                    },
+                                    "due_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    },
+                                    "method": {
+                                        "type": "string",
+                                        "enum": [
+                                            "pix",
+                                            "transfer",
+                                            "paypal",
+                                            "wise",
+                                            "other"
+                                        ]
+                                    },
+                                    "notes": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Payout atualizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Payouts"
+                ],
+                "summary": "Remover payout",
+                "operationId": "4f3ab17c7c27d93d59869f8a125fbbbe",
+                "parameters": [
+                    {
+                        "name": "payout",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Payout removido"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/reports/{report}/generate-payouts": {
+            "post": {
+                "tags": [
+                    "Reports"
+                ],
+                "summary": "Gerar payouts a partir de relatório",
+                "operationId": "f01072445d326c35cf91849cff88935d",
+                "parameters": [
+                    {
+                        "name": "report",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "due_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    },
+                                    "reset_existing": {
+                                        "type": "boolean",
+                                        "example": false
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Payouts gerados"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/payouts/{payout}/mark-paid": {
+            "post": {
+                "tags": [
+                    "Payouts"
+                ],
+                "summary": "Marcar payout como pago",
+                "operationId": "ca5265fbf15d880d975bec8398e7d350",
+                "parameters": [
+                    {
+                        "name": "payout",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "paid_at": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    },
+                                    "method": {
+                                        "type": "string",
+                                        "enum": [
+                                            "pix",
+                                            "transfer",
+                                            "paypal",
+                                            "wise",
+                                            "other"
+                                        ]
+                                    },
+                                    "receipt": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "nullable": true
+                                    },
+                                    "partner_invoice_number": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "partner_invoice": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "nullable": true
+                                    },
+                                    "notes": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Payout marcado como pago"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/projects": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Listar projetos",
+                "operationId": "8d4a13ef3fc773ff4031e515460919ea",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de projetos"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Criar projeto",
+                "operationId": "a4dd4c17bf5fc24c224357f03dcc848a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "created_by",
+                                    "title"
+                                ],
+                                "properties": {
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Projeto X"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "date_release": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    },
+                                    "finished": {
+                                        "type": "boolean",
+                                        "nullable": true
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "steam_id": {
+                                        "type": "integer",
+                                        "nullable": true
+                                    },
+                                    "capsule": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Projeto criado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/projects/{project}": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Detalhar projeto",
+                "operationId": "1352e06e55f6ab10d3702509cd385918",
+                "parameters": [
+                    {
+                        "name": "project",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Projeto"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Atualizar projeto",
+                "operationId": "a93b65e3037bfd5ea5cdc1b3dd11ba53",
+                "parameters": [
+                    {
+                        "name": "project",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "created_by",
+                                    "title"
+                                ],
+                                "properties": {
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Projeto X"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "date_release": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    },
+                                    "finished": {
+                                        "type": "boolean",
+                                        "nullable": true
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "steam_id": {
+                                        "type": "integer",
+                                        "nullable": true
+                                    },
+                                    "capsule": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Projeto atualizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Remover projeto",
+                "operationId": "63c289a907902132dd95dd7ecb50143f",
+                "parameters": [
+                    {
+                        "name": "project",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Projeto removido"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/projects/{project}/partners": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Listar parceiros do projeto",
+                "operationId": "4e19933b1a5803cafb6b843df504cc96",
+                "parameters": [
+                    {
+                        "name": "project",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Parceiros do projeto"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Sincronizar parceiros do projeto",
+                "operationId": "220abba052b76978823199f40db7f174",
+                "parameters": [
+                    {
+                        "name": "project",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "partners"
+                                ],
+                                "properties": {
+                                    "partners": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "partner_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "share_percent": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 50
+                                                },
+                                                "role": {
+                                                    "type": "string",
+                                                    "nullable": true
+                                                },
+                                                "valid_from": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "nullable": true
+                                                },
+                                                "valid_until": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "mode": {
+                                        "type": "string",
+                                        "enum": [
+                                            "sync",
+                                            "attach",
+                                            "detach"
+                                        ],
+                                        "example": "sync"
+                                    },
+                                    "detach_missing": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Parceiros sincronizados"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Registrar usuário",
+                "operationId": "2b08ae3c9740d427095069e90211f68b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Fulano"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "fulano@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário registrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário registrado com sucesso"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/reports": {
+            "get": {
+                "tags": [
+                    "Reports"
+                ],
+                "summary": "Listar relatórios",
+                "operationId": "42398321972bc3074eef76718e0fd9dc",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "period_month",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "2024-12"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 20
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de relatórios"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Reports"
+                ],
+                "summary": "Criar relatório",
+                "operationId": "318de4ef8123b483320dc9dbb45b6a43",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "platform",
+                                    "period_month",
+                                    "currency",
+                                    "gross_amount"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "platform": {
+                                        "type": "string",
+                                        "example": "steam"
+                                    },
+                                    "period_month": {
+                                        "type": "string",
+                                        "example": "2024-12"
+                                    },
+                                    "currency": {
+                                        "type": "string",
+                                        "example": "USD"
+                                    },
+                                    "gross_amount": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 1000
+                                    },
+                                    "fees": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 50
+                                    },
+                                    "taxes": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 30
+                                    },
+                                    "net_amount": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 920
+                                    },
+                                    "statement_ref": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Relatório criado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/reports/{report}": {
+            "get": {
+                "tags": [
+                    "Reports"
+                ],
+                "summary": "Detalhar relatório",
+                "operationId": "27a88a672d6857bada08e494e0991cd2",
+                "parameters": [
+                    {
+                        "name": "report",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Relatório"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Reports"
+                ],
+                "summary": "Atualizar relatório",
+                "operationId": "8b67b88c8a8b114598906eb4d5ce611d",
+                "parameters": [
+                    {
+                        "name": "report",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "platform": {
+                                        "type": "string",
+                                        "example": "steam"
+                                    },
+                                    "period_month": {
+                                        "type": "string",
+                                        "example": "2024-12"
+                                    },
+                                    "currency": {
+                                        "type": "string",
+                                        "example": "USD"
+                                    },
+                                    "gross_amount": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 1000
+                                    },
+                                    "fees": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 50
+                                    },
+                                    "taxes": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 30
+                                    },
+                                    "net_amount": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 920
+                                    },
+                                    "statement_ref": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Relatório atualizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Reports"
+                ],
+                "summary": "Remover relatório",
+                "operationId": "032f790bc094d78029b472a60f2899c8",
+                "parameters": [
+                    {
+                        "name": "report",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Relatório removido"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/reports/{report}/allocate": {
+            "post": {
+                "tags": [
+                    "Reports"
+                ],
+                "summary": "Alocar projetos no relatório",
+                "operationId": "a21689c7021442c5b1b88a17e6679a22",
+                "parameters": [
+                    {
+                        "name": "report",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "allocations"
+                                ],
+                                "properties": {
+                                    "allocations": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "project_id": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "project_net_amount": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 500
+                                                },
+                                                "currency": {
+                                                    "type": "string",
+                                                    "example": "USD"
+                                                },
+                                                "units_sold": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "overwrite": {
+                                        "type": "boolean",
+                                        "example": false
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Alocações salvas"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Partners",
+            "description": "Partners"
+        },
+        {
+            "name": "Payouts",
+            "description": "Payouts"
+        },
+        {
+            "name": "Reports",
+            "description": "Reports"
+        },
+        {
+            "name": "Projects",
+            "description": "Projects"
+        },
+        {
+            "name": "Health",
+            "description": "Health"
+        }
+    ]
+}

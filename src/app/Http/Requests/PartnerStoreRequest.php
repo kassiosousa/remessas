@@ -12,7 +12,7 @@ class PartnerStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'created_by' => ['required','exists:users,id'],
+            'created_by' => ['required','uuid','exists:users,id'],
             'name' => ['required','string','max:255'],
             'email' => ['required','email','max:255','unique:partners,email'],
             'portfolio' => ['nullable','string'],

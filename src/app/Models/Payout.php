@@ -12,7 +12,7 @@ class Payout extends Model
     protected $fillable = [
         'report_id','project_id','partner_id',
         'currency','amount','status','due_date','paid_at','method',
-        'notes','receipt_path','partner_invoice_number','partner_invoice_path'
+        'notes','receipt_path'
     ];
 
     protected $casts = [

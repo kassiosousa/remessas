@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/var/www/html/phpunit.xml" tests="27" assertions="64" errors="0" failures="15" skipped="0" time="18.356400">
+    <testsuite name="Feature" tests="27" assertions="64" errors="0" failures="15" skipped="0" time="18.356400">
+      <testsuite name="Tests\Feature\AuthControllersTest" file="/var/www/html/tests/Feature/AuthControllersTest.php" tests="5" assertions="17" errors="0" failures="1" skipped="0" time="10.625843">
+        <testcase name="test_register_user" file="/var/www/html/tests/Feature/AuthControllersTest.php" line="21" class="Tests\Feature\AuthControllersTest" classname="Tests.Feature.AuthControllersTest" assertions="3" time="8.493918"/>
+        <testcase name="test_login_success" file="/var/www/html/tests/Feature/AuthControllersTest.php" line="38" class="Tests\Feature\AuthControllersTest" classname="Tests.Feature.AuthControllersTest" assertions="6" time="0.934760"/>
+        <testcase name="test_login_invalid_credentials" file="/var/www/html/tests/Feature/AuthControllersTest.php" line="62" class="Tests\Feature\AuthControllersTest" classname="Tests.Feature.AuthControllersTest" assertions="2" time="0.650448">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\AuthControllersTest::test_login_invalid_credentials
+Expected response status code [401] but received 422.
+Failed asserting that 422 is identical to 401.
+
+The following errors occurred during the last request:
+
+{
+    "message": "A senha deve ter pelo menos 6 caracteres.",
+    "errors": {
+        "password": [
+            "A senha deve ter pelo menos 6 caracteres."
+        ]
+    }
+}
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponseAssert.php:45
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:174
+/var/www/html/tests/Feature/AuthControllersTest.php:76</failure>
+        </testcase>
+        <testcase name="test_logout" file="/var/www/html/tests/Feature/AuthControllersTest.php" line="80" class="Tests\Feature\AuthControllersTest" classname="Tests.Feature.AuthControllersTest" assertions="4" time="0.204667"/>
+        <testcase name="test_auth_user" file="/var/www/html/tests/Feature/AuthControllersTest.php" line="91" class="Tests\Feature\AuthControllersTest" classname="Tests.Feature.AuthControllersTest" assertions="2" time="0.342050"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\ExampleTest" file="/var/www/html/tests/Feature/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="1.046755">
+        <testcase name="test_the_application_returns_a_successful_response" file="/var/www/html/tests/Feature/ExampleTest.php" line="13" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" assertions="1" time="1.046755"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\PartnerControllerTest" file="/var/www/html/tests/Feature/PartnerControllerTest.php" tests="5" assertions="11" errors="0" failures="3" skipped="0" time="1.584560">
+        <testcase name="test_list_partners" file="/var/www/html/tests/Feature/PartnerControllerTest.php" line="20" class="Tests\Feature\PartnerControllerTest" classname="Tests.Feature.PartnerControllerTest" assertions="4" time="0.591016">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\PartnerControllerTest::test_list_partners
+Failed asserting that an array has the key 'meta'.
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/AssertableJsonString.php:303
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:1001
+/var/www/html/tests/Feature/PartnerControllerTest.php:32</failure>
+        </testcase>
+        <testcase name="test_create_partner" file="/var/www/html/tests/Feature/PartnerControllerTest.php" line="35" class="Tests\Feature\PartnerControllerTest" classname="Tests.Feature.PartnerControllerTest" assertions="2" time="0.272961"/>
+        <testcase name="test_show_partner" file="/var/www/html/tests/Feature/PartnerControllerTest.php" line="51" class="Tests\Feature\PartnerControllerTest" classname="Tests.Feature.PartnerControllerTest" assertions="2" time="0.358568">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\PartnerControllerTest::test_show_partner
+Unable to find JSON fragment: 
+
+[{"id":1}]
+
+within
+
+[{"projects":[]}].
+Failed asserting that false is true.
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/AssertableJsonString.php:144
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:947
+/var/www/html/tests/Feature/PartnerControllerTest.php:63</failure>
+        </testcase>
+        <testcase name="test_update_partner" file="/var/www/html/tests/Feature/PartnerControllerTest.php" line="66" class="Tests\Feature\PartnerControllerTest" classname="Tests.Feature.PartnerControllerTest" assertions="2" time="0.182649">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\PartnerControllerTest::test_update_partner
+Unable to find JSON fragment: 
+
+[{"name":"Partner D2"}]
+
+within
+
+[[]].
+Failed asserting that false is true.
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/AssertableJsonString.php:144
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:947
+/var/www/html/tests/Feature/PartnerControllerTest.php:84</failure>
+        </testcase>
+        <testcase name="test_delete_partner" file="/var/www/html/tests/Feature/PartnerControllerTest.php" line="87" class="Tests\Feature\PartnerControllerTest" classname="Tests.Feature.PartnerControllerTest" assertions="1" time="0.179366"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\PayoutControllerTest" file="/var/www/html/tests/Feature/PayoutControllerTest.php" tests="3" assertions="8" errors="0" failures="3" skipped="0" time="0.944691">
+        <testcase name="test_list_payouts" file="/var/www/html/tests/Feature/PayoutControllerTest.php" line="25" class="Tests\Feature\PayoutControllerTest" classname="Tests.Feature.PayoutControllerTest" assertions="4" time="0.452352">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\PayoutControllerTest::test_list_payouts
+Failed asserting that an array has the key 'meta'.
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/AssertableJsonString.php:303
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:1001
+/var/www/html/tests/Feature/PayoutControllerTest.php:57</failure>
+        </testcase>
+        <testcase name="test_generate_payouts_from_report" file="/var/www/html/tests/Feature/PayoutControllerTest.php" line="60" class="Tests\Feature\PayoutControllerTest" classname="Tests.Feature.PayoutControllerTest" assertions="2" time="0.320409">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\PayoutControllerTest::test_generate_payouts_from_report
+Unable to find JSON fragment: 
+
+[{"report_id":1}]
+
+within
+
+[{"message":"Payouts gerados\/atualizados com sucesso.","report_id":null}].
+Failed asserting that false is true.
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/AssertableJsonString.php:144
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:947
+/var/www/html/tests/Feature/PayoutControllerTest.php:99</failure>
+        </testcase>
+        <testcase name="test_show_update_mark_paid_and_delete_payout" file="/var/www/html/tests/Feature/PayoutControllerTest.php" line="102" class="Tests\Feature\PayoutControllerTest" classname="Tests.Feature.PayoutControllerTest" assertions="2" time="0.171930">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\PayoutControllerTest::test_show_update_mark_paid_and_delete_payout
+Unable to find JSON fragment: 
+
+[{"id":1}]
+
+within
+
+[{"partner":null,"project":null,"report":null}].
+Failed asserting that false is true.
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/AssertableJsonString.php:144
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:947
+/var/www/html/tests/Feature/PayoutControllerTest.php:133</failure>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Feature\ProjectControllerTest" file="/var/www/html/tests/Feature/ProjectControllerTest.php" tests="5" assertions="11" errors="0" failures="3" skipped="0" time="0.941585">
+        <testcase name="test_list_projects" file="/var/www/html/tests/Feature/ProjectControllerTest.php" line="20" class="Tests\Feature\ProjectControllerTest" classname="Tests.Feature.ProjectControllerTest" assertions="4" time="0.204364">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ProjectControllerTest::test_list_projects
+Failed asserting that an array has the key 'meta'.
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/AssertableJsonString.php:303
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:1001
+/var/www/html/tests/Feature/ProjectControllerTest.php:31</failure>
+        </testcase>
+        <testcase name="test_create_project" file="/var/www/html/tests/Feature/ProjectControllerTest.php" line="34" class="Tests\Feature\ProjectControllerTest" classname="Tests.Feature.ProjectControllerTest" assertions="2" time="0.179084"/>
+        <testcase name="test_show_project" file="/var/www/html/tests/Feature/ProjectControllerTest.php" line="50" class="Tests\Feature\ProjectControllerTest" classname="Tests.Feature.ProjectControllerTest" assertions="2" time="0.185655">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ProjectControllerTest::test_show_project
+Unable to find JSON fragment: 
+
+[{"id":1}]
+
+within
+
+[{"partners":[]}].
+Failed asserting that false is true.
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/AssertableJsonString.php:144
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:947
+/var/www/html/tests/Feature/ProjectControllerTest.php:61</failure>
+        </testcase>
+        <testcase name="test_update_project" file="/var/www/html/tests/Feature/ProjectControllerTest.php" line="64" class="Tests\Feature\ProjectControllerTest" classname="Tests.Feature.ProjectControllerTest" assertions="2" time="0.199739">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ProjectControllerTest::test_update_project
+Unable to find JSON fragment: 
+
+[{"title":"Project D2"}]
+
+within
+
+[[]].
+Failed asserting that false is true.
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/AssertableJsonString.php:144
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:947
+/var/www/html/tests/Feature/ProjectControllerTest.php:80</failure>
+        </testcase>
+        <testcase name="test_delete_project" file="/var/www/html/tests/Feature/ProjectControllerTest.php" line="83" class="Tests\Feature\ProjectControllerTest" classname="Tests.Feature.ProjectControllerTest" assertions="1" time="0.172743"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\ProjectPartnerControllerTest" file="/var/www/html/tests/Feature/ProjectPartnerControllerTest.php" tests="2" assertions="4" errors="0" failures="1" skipped="0" time="1.551391">
+        <testcase name="test_sync_project_partners" file="/var/www/html/tests/Feature/ProjectPartnerControllerTest.php" line="22" class="Tests\Feature\ProjectPartnerControllerTest" classname="Tests.Feature.ProjectPartnerControllerTest" assertions="1" time="1.330027">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ProjectPartnerControllerTest::test_sync_project_partners
+Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+PDOException: SQLSTATE[23000]: Integrity constraint violation: 19 NOT NULL constraint failed: project_partner.project_id in /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php:584
+Stack trace:
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(584): PDOStatement-&gt;execute()
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(827): Illuminate\Database\Connection-&gt;{closure:Illuminate\Database\Connection::statement():573}('insert into "pr...', Array)
+#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate\Database\Connection-&gt;runQueryCallback('insert into "pr...', Array, Object(Closure))
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(573): Illuminate\Database\Connection-&gt;run('insert into "pr...', Array, Object(Closure))
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(537): Illuminate\Database\Connection-&gt;statement('insert into "pr...', Array)
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4002): Illuminate\Database\Connection-&gt;insert('insert into "pr...', Array)
+#6 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Concerns/InteractsWithPivotTable.php(274): Illuminate\Database\Query\Builder-&gt;insert(Array)
+#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Concerns/InteractsWithPivotTable.php(187): Illuminate\Database\Eloquent\Relations\BelongsToMany-&gt;attach(1, Array, false)
+#8 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Concerns/InteractsWithPivotTable.php(119): Illuminate\Database\Eloquent\Relations\BelongsToMany-&gt;attachNew(Array, Array, false)
+#9 /var/www/html/app/Http/Controllers/ProjectPartnerController.php(77): Illuminate\Database\Eloquent\Relations\BelongsToMany-&gt;sync(Array, true)
+#10 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App\Http\Controllers\ProjectPartnerController-&gt;{closure:App\Http\Controllers\ProjectPartnerController::sync():65}(Object(Illuminate\Database\SQLiteConnection))
+#11 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(491): Illuminate\Database\Connection-&gt;transaction(Object(Closure))
+#12 /var/www/html/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate\Database\DatabaseManager-&gt;__call('transaction', Array)
+#13 /var/www/html/app/Http/Controllers/ProjectPartnerController.php(65): Illuminate\Support\Facades\Facade::__callStatic('transaction', Array)
+#14 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\Http\Controllers\ProjectPartnerController-&gt;sync(Object(App\Http\Requests\ProjectPartnerSyncRequest), Object(App\Models\Project), '1')
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\Routing\ControllerDispatcher-&gt;dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\ProjectPartnerController), 'sync')
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\Routing\Route-&gt;runController()
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\Routing\Route-&gt;run()
+#18 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\Routing\Router-&gt;{closure:Illuminate\Routing\Router::runRouteWithinStack():821}(Object(Illuminate\Http\Request))
+#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\Pipeline\Pipeline-&gt;{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}(Object(Illuminate\Http\Request))
+#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\Routing\Router-&gt;runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\Routing\Router-&gt;runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\Routing\Router-&gt;dispatchToRoute(Object(Illuminate\Http\Request))
+#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\Routing\Router-&gt;dispatch(Object(Illuminate\Http\Request))
+#25 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\Foundation\Http\Kernel-&gt;{closure:Illuminate\Foundation\Http\Kernel::dispatchToRouter():197}(Object(Illuminate\Http\Request))
+#26 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\Pipeline\Pipeline-&gt;{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}(Object(Illuminate\Http\Request))
+#27 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#28 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\Foundation\Http\Kernel-&gt;sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel-&gt;handle(Object(Illuminate\Http\Request))
+#30 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase-&gt;call('PUT', '/api/projects/1...', Array, Array, Array, Array, '{"partners":[{"...')
+#31 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(441): Illuminate\Foundation\Testing\TestCase-&gt;json('PUT', '/api/projects/1...', Array, Array, 0)
+#32 /var/www/html/tests/Feature/ProjectPartnerControllerTest.php(47): Illuminate\Foundation\Testing\TestCase-&gt;putJson('/api/projects/1...', Array)
+#33 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\ProjectPartnerControllerTest-&gt;test_sync_project_partners()
+#34 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase-&gt;runTest()
+#35 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase-&gt;runBare()
+#36 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner-&gt;run(Object(Tests\Feature\ProjectPartnerControllerTest))
+#37 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase-&gt;run()
+#38 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite-&gt;run()
+#39 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite-&gt;run()
+#40 /var/www/html/vendor/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite-&gt;run()
+#41 /var/www/html/vendor/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner-&gt;run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#42 /var/www/html/vendor/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application-&gt;run(Array)
+#43 /var/www/html/vendor/bin/phpunit(122): include('/var/www/html/v...')
+#44 {main}
+
+Next Illuminate\Database\QueryException: SQLSTATE[23000]: Integrity constraint violation: 19 NOT NULL constraint failed: project_partner.project_id (Connection: sqlite, Database: :memory:, SQL: insert into "project_partner" ("created_at", "partner_id", "project_id", "role", "share_percent", "updated_at", "valid_from", "valid_until") values (2026-01-26 02:26:24, 1, ?, Design, 50, 2026-01-26 02:26:24, ?, ?)) in /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php:838
+Stack trace:
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate\Database\Connection-&gt;runQueryCallback('insert into "pr...', Array, Object(Closure))
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(573): Illuminate\Database\Connection-&gt;run('insert into "pr...', Array, Object(Closure))
+#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(537): Illuminate\Database\Connection-&gt;statement('insert into "pr...', Array)
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4002): Illuminate\Database\Connection-&gt;insert('insert into "pr...', Array)
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Concerns/InteractsWithPivotTable.php(274): Illuminate\Database\Query\Builder-&gt;insert(Array)
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Concerns/InteractsWithPivotTable.php(187): Illuminate\Database\Eloquent\Relations\BelongsToMany-&gt;attach(1, Array, false)
+#6 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Concerns/InteractsWithPivotTable.php(119): Illuminate\Database\Eloquent\Relations\BelongsToMany-&gt;attachNew(Array, Array, false)
+#7 /var/www/html/app/Http/Controllers/ProjectPartnerController.php(77): Illuminate\Database\Eloquent\Relations\BelongsToMany-&gt;sync(Array, true)
+#8 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App\Http\Controllers\ProjectPartnerController-&gt;{closure:App\Http\Controllers\ProjectPartnerController::sync():65}(Object(Illuminate\Database\SQLiteConnection))
+#9 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(491): Illuminate\Database\Connection-&gt;transaction(Object(Closure))
+#10 /var/www/html/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate\Database\DatabaseManager-&gt;__call('transaction', Array)
+#11 /var/www/html/app/Http/Controllers/ProjectPartnerController.php(65): Illuminate\Support\Facades\Facade::__callStatic('transaction', Array)
+#12 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\Http\Controllers\ProjectPartnerController-&gt;sync(Object(App\Http\Requests\ProjectPartnerSyncRequest), Object(App\Models\Project), '1')
+#13 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\Routing\ControllerDispatcher-&gt;dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\ProjectPartnerController), 'sync')
+#14 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\Routing\Route-&gt;runController()
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\Routing\Route-&gt;run()
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\Routing\Router-&gt;{closure:Illuminate\Routing\Router::runRouteWithinStack():821}(Object(Illuminate\Http\Request))
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\Pipeline\Pipeline-&gt;{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}(Object(Illuminate\Http\Request))
+#18 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\Routing\Router-&gt;runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\Routing\Router-&gt;runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\Routing\Router-&gt;dispatchToRoute(Object(Illuminate\Http\Request))
+#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\Routing\Router-&gt;dispatch(Object(Illuminate\Http\Request))
+#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\Foundation\Http\Kernel-&gt;{closure:Illuminate\Foundation\Http\Kernel::dispatchToRouter():197}(Object(Illuminate\Http\Request))
+#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\Pipeline\Pipeline-&gt;{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}(Object(Illuminate\Http\Request))
+#25 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\Pipeline\Pipeline-&gt;then(Object(Closure))
+#26 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\Foundation\Http\Kernel-&gt;sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#27 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel-&gt;handle(Object(Illuminate\Http\Request))
+#28 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase-&gt;call('PUT', '/api/projects/1...', Array, Array, Array, Array, '{"partners":[{"...')
+#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(441): Illuminate\Foundation\Testing\TestCase-&gt;json('PUT', '/api/projects/1...', Array, Array, 0)
+#30 /var/www/html/tests/Feature/ProjectPartnerControllerTest.php(47): Illuminate\Foundation\Testing\TestCase-&gt;putJson('/api/projects/1...', Array)
+#31 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestCase.php(1667): Tests\Feature\ProjectPartnerControllerTest-&gt;test_sync_project_partners()
+#32 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestCase.php(519): PHPUnit\Framework\TestCase-&gt;runTest()
+#33 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase-&gt;runBare()
+#34 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestCase.php(365): PHPUnit\Framework\TestRunner-&gt;run(Object(Tests\Feature\ProjectPartnerControllerTest))
+#35 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase-&gt;run()
+#36 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite-&gt;run()
+#37 /var/www/html/vendor/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestSuite-&gt;run()
+#38 /var/www/html/vendor/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite-&gt;run()
+#39 /var/www/html/vendor/phpunit/phpunit/src/TextUI/Application.php(211): PHPUnit\TextUI\TestRunner-&gt;run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#40 /var/www/html/vendor/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application-&gt;run(Array)
+#41 /var/www/html/vendor/bin/phpunit(122): include('/var/www/html/v...')
+#42 {main}
+
+----------------------------------------------------------------------------------
+
+SQLSTATE[23000]: Integrity constraint violation: 19 NOT NULL constraint failed: project_partner.project_id (Connection: sqlite, Database: :memory:, SQL: insert into "project_partner" ("created_at", "partner_id", "project_id", "role", "share_percent", "updated_at", "valid_from", "valid_until") values (2026-01-26 02:26:24, 1, ?, Design, 50, 2026-01-26 02:26:24, ?, ?))
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponseAssert.php:45
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:174
+/var/www/html/tests/Feature/ProjectPartnerControllerTest.php:49</failure>
+        </testcase>
+        <testcase name="test_list_project_partners" file="/var/www/html/tests/Feature/ProjectPartnerControllerTest.php" line="53" class="Tests\Feature\ProjectPartnerControllerTest" classname="Tests.Feature.ProjectPartnerControllerTest" assertions="3" time="0.221364"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\ReportControllerTest" file="/var/www/html/tests/Feature/ReportControllerTest.php" tests="5" assertions="11" errors="0" failures="3" skipped="0" time="1.308872">
+        <testcase name="test_list_reports" file="/var/www/html/tests/Feature/ReportControllerTest.php" line="20" class="Tests\Feature\ReportControllerTest" classname="Tests.Feature.ReportControllerTest" assertions="4" time="0.366613">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ReportControllerTest::test_list_reports
+Failed asserting that an array has the key 'meta'.
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/AssertableJsonString.php:303
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:1001
+/var/www/html/tests/Feature/ReportControllerTest.php:34</failure>
+        </testcase>
+        <testcase name="test_create_report" file="/var/www/html/tests/Feature/ReportControllerTest.php" line="37" class="Tests\Feature\ReportControllerTest" classname="Tests.Feature.ReportControllerTest" assertions="2" time="0.224654"/>
+        <testcase name="test_show_report" file="/var/www/html/tests/Feature/ReportControllerTest.php" line="55" class="Tests\Feature\ReportControllerTest" classname="Tests.Feature.ReportControllerTest" assertions="2" time="0.191328">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ReportControllerTest::test_show_report
+Unable to find JSON fragment: 
+
+[{"id":1}]
+
+within
+
+[{"payouts":[],"projects":[]}].
+Failed asserting that false is true.
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/AssertableJsonString.php:144
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:947
+/var/www/html/tests/Feature/ReportControllerTest.php:69</failure>
+        </testcase>
+        <testcase name="test_update_report" file="/var/www/html/tests/Feature/ReportControllerTest.php" line="72" class="Tests\Feature\ReportControllerTest" classname="Tests.Feature.ReportControllerTest" assertions="2" time="0.286771">
+          <failure type="PHPUnit\Framework\AssertionFailedError">Tests\Feature\ReportControllerTest::test_update_report
+Invalid JSON was returned from the route.
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponseAssert.php:45
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:1243
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:947
+/var/www/html/tests/Feature/ReportControllerTest.php:90</failure>
+        </testcase>
+        <testcase name="test_delete_report" file="/var/www/html/tests/Feature/ReportControllerTest.php" line="93" class="Tests\Feature\ReportControllerTest" classname="Tests.Feature.ReportControllerTest" assertions="1" time="0.239505"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\ReportProjectControllerTest" file="/var/www/html/tests/Feature/ReportProjectControllerTest.php" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.352704">
+        <testcase name="test_allocate_report_projects" file="/var/www/html/tests/Feature/ReportProjectControllerTest.php" line="21" class="Tests\Feature\ReportProjectControllerTest" classname="Tests.Feature.ReportProjectControllerTest" assertions="1" time="0.352704">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ReportProjectControllerTest::test_allocate_report_projects
+Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponseAssert.php:45
+/var/www/html/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:174
+/var/www/html/tests/Feature/ReportProjectControllerTest.php:50</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

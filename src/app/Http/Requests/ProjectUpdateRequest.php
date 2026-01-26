@@ -12,7 +12,7 @@ class ProjectUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'created_by' => ['required','int','exists:users,id'],
+            'created_by' => ['required','uuid','exists:users,id'],
             'title' => ['required','string','max:255'],
             'description' => ['nullable','string','max:50'],
             'date_release' => ['nullable','date'],

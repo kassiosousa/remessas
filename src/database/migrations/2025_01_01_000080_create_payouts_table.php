@@ -24,10 +24,6 @@ return new class extends Migration {
 
             // Comprovante do pagamento (opcional)
             $table->string('receipt_path')->nullable();            // ex: storage path
-            // Nota fiscal do parceiro (opcional)
-            $table->string('partner_invoice_number')->nullable();
-            $table->string('partner_invoice_path')->nullable();    // ex: storage path
-
             $table->timestamps();
 
             $table->index(['report_id','project_id','partner_id'], 'payout_triplet_idx');

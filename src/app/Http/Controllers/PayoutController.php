@@ -11,9 +11,24 @@ use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use OpenApi\Annotations as OA;
 
 class PayoutController extends Controller
 {
+    /**
+     * @OA\Get(
+     *   path="/api/payouts",
+     *   tags={"Payouts"},
+     *   summary="Listar payouts",
+     *   security={{"bearerAuth":{}}},
+     *   @OA\Parameter(name="status", in="query", required=false, @OA\Schema(type="string")),
+     *   @OA\Parameter(name="partner_id", in="query", required=false, @OA\Schema(type="integer")),
+     *   @OA\Parameter(name="project_id", in="query", required=false, @OA\Schema(type="integer")),
+     *   @OA\Parameter(name="report_id", in="query", required=false, @OA\Schema(type="integer")),
+     *   @OA\Parameter(name="per_page", in="query", required=false, @OA\Schema(type="integer", example=20)),
+     *   @OA\Response(response=200, description="Lista de payouts")
+     * )
+     */
     public function index(Request $request)
     {
         $q = Payout::query()
@@ -28,6 +43,16 @@ class PayoutController extends Controller
         return $q->paginate($request->integer('per_page', 20));
     }
 
+    /**
+     * @OA\Get(
+     *   path="/api/payouts/{payout}",
+     *   tags={"Payouts"},
+     *   summary="Detalhar payout",
+     *   security={{"bearerAuth":{}}},
+     *   @OA\Parameter(name="payout", in="path", required=true, @OA\Schema(type="integer")),
+     *   @OA\Response(response=200, description="Payout")
+     * )
+     */
     public function show(Payout $payout)
     {
         $payout->load(['partner','project','report']);
@@ -35,6 +60,23 @@ class PayoutController extends Controller
     }
 
     // POST /reports/{report}/generate-payouts
+    /**
+     * @OA\Post(
+     *   path="/api/reports/{report}/generate-payouts",
+     *   tags={"Reports"},
+     *   summary="Gerar payouts a partir de relatório",
+     *   security={{"bearerAuth":{}}},
+     *   @OA\Parameter(name="report", in="path", required=true, @OA\Schema(type="integer")),
+     *   @OA\RequestBody(
+     *     required=false,
+     *     @OA\JsonContent(
+     *       @OA\Property(property="due_date", type="string", format="date", nullable=true),
+     *       @OA\Property(property="reset_existing", type="boolean", example=false)
+     *     )
+     *   ),
+     *   @OA\Response(response=201, description="Payouts gerados")
+     * )
+     */
     public function generateFromReport(PayoutGenerateRequest $request, Report $report)
     {
         $dueDate = $request->input('due_date');
@@ -99,6 +141,25 @@ class PayoutController extends Controller
         ], 201);
     }
 
+    /**
+     * @OA\Put(
+     *   path="/api/payouts/{payout}",
+     *   tags={"Payouts"},
+     *   summary="Atualizar payout",
+     *   security={{"bearerAuth":{}}},
+     *   @OA\Parameter(name="payout", in="path", required=true, @OA\Schema(type="integer")),
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\JsonContent(
+     *       @OA\Property(property="status", type="string", enum={"pending","scheduled","paid","canceled"}),
+     *       @OA\Property(property="due_date", type="string", format="date", nullable=true),
+     *       @OA\Property(property="method", type="string", enum={"pix","transfer","paypal","wise","other"}),
+     *       @OA\Property(property="notes", type="string", nullable=true)
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="Payout atualizado")
+     * )
+     */
     public function update(PayoutUpdateRequest $request, Payout $payout)
     {
         $payout->update($request->validated());
@@ -106,6 +167,28 @@ class PayoutController extends Controller
     }
 
     // POST /payouts/{payout}/mark-paid
+    /**
+     * @OA\Post(
+     *   path="/api/payouts/{payout}/mark-paid",
+     *   tags={"Payouts"},
+     *   summary="Marcar payout como pago",
+     *   security={{"bearerAuth":{}}},
+     *   @OA\Parameter(name="payout", in="path", required=true, @OA\Schema(type="integer")),
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(property="paid_at", type="string", format="date", nullable=true),
+     *         @OA\Property(property="method", type="string", enum={"pix","transfer","paypal","wise","other"}),
+     *         @OA\Property(property="receipt", type="string", format="binary", nullable=true),
+     *         @OA\Property(property="notes", type="string", nullable=true)
+     *       )
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="Payout marcado como pago")
+     * )
+     */
     public function markPaid(PayoutMarkPaidRequest $request, Payout $payout)
     {
         $data = $request->validated();
@@ -115,10 +198,6 @@ class PayoutController extends Controller
             $path = $request->file('receipt')->store('payouts/receipts');
             $data['receipt_path'] = $path;
         }
-        if ($request->hasFile('partner_invoice')) {
-            $path = $request->file('partner_invoice')->store('payouts/partner_invoices');
-            $data['partner_invoice_path'] = $path;
-        }
 
         $data['status']  = 'paid';
         $data['paid_at'] = $data['paid_at'] ?? now();
@@ -127,14 +206,21 @@ class PayoutController extends Controller
         return $payout->fresh();
     }
 
+    /**
+     * @OA\Delete(
+     *   path="/api/payouts/{payout}",
+     *   tags={"Payouts"},
+     *   summary="Remover payout",
+     *   security={{"bearerAuth":{}}},
+     *   @OA\Parameter(name="payout", in="path", required=true, @OA\Schema(type="integer")),
+     *   @OA\Response(response=204, description="Payout removido")
+     * )
+     */
     public function destroy(Payout $payout)
     {
         // Apaga arquivos ligados (se existirem)
         if ($payout->receipt_path) {
             Storage::delete($payout->receipt_path);
-        }
-        if ($payout->partner_invoice_path) {
-            Storage::delete($payout->partner_invoice_path);
         }
         $payout->delete();
         return response()->noContent();

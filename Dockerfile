@@ -1,6 +1,11 @@
-FROM php:8.3-apache
+FROM composer:2 as composer
 
-RUN docker-php-ext-install pdo pdo_mysql
+FROM php:8.4-apache
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends git unzip libzip-dev sqlite3 libsqlite3-dev \
+  && docker-php-ext-install pdo pdo_mysql pdo_sqlite zip \
+  && rm -rf /var/lib/apt/lists/*
 RUN a2enmod rewrite
 
 # VirtualHost apontando para /public
@@ -17,6 +22,9 @@ RUN printf '%s\n' \
   && a2ensite laravel.conf
 
 WORKDIR /var/www/html
+
+# Instalar Composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # 👇 Copia só o app Laravel (que está em src/) para dentro do html
 COPY ./src/ /var/www/html/

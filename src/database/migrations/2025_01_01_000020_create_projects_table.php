@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->uuid('created_by')->nullable();
             $table->string('title');
             $table->text('description')->nullable();
             $table->date('date_release')->nullable();
@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('steam_id')->nullable();
             $table->string('capsule')->nullable();
             $table->timestamps();
+
+            $table->foreign('created_by')->references('id')->on('users')->nullOnDelete();
         });
     }
     public function down(): void {
