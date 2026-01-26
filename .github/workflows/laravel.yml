@@ -9,6 +9,9 @@ on:
 jobs:
   laravel-tests:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src
 
     services:
       mysql:
@@ -40,7 +43,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.composer/cache/files
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('src/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Copy .env
