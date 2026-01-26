@@ -51,7 +51,7 @@ jobs:
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-progress --prefer-dist --working-dir=src
+        run: composer install -q --no-ansi --no-interaction --no-progress --prefer-dist
 
       - name: Configure .env for MySQL
         working-directory: src
